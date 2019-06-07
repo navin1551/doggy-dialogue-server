@@ -37,4 +37,48 @@ postRouter
       .catch(next);
   });
 
+postRouter
+  .route("/:id")
+  .all((req, res, next) => {
+    const { id } = req.params;
+    const knexInstance = req.app.get("db");
+    PostService.getById(knexInstance, id)
+      .then(post => {
+        if (!post) {
+          return res
+            .status(404)
+            .send({ error: { message: `Post doesn't exist` } });
+        }
+        res.post = post;
+        next();
+      })
+      .catch(next);
+  })
+
+  .get((req, res) => {
+    res.json(serializedPosts(res.post));
+  })
+
+  .delete((req, res, next) => {
+    const { id } = req.params;
+    const knexInstance = req.app.get("db");
+    PostService.deletePosts(knexInstance, id)
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
+  })
+
+  .patch(jsonParser, (req, res, next) => {
+    const { id, title, content, date_created, forumid } = req.body;
+    const postToUpdate = { id, title, content, date_created, forumid };
+    const knexInstance = req.app.get("db");
+
+    PostService.updatePosts(knexInstance, req.params.id, postToUpdate)
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
+  });
+
 module.exports = postRouter;
