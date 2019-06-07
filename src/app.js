@@ -5,6 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 const postRouter = require("./post/post-router");
+const replyRouter = require("./reply/reply-router");
 
 const app = express();
 
@@ -14,7 +15,8 @@ app.use(morgan(morganOption));
 app.use(cors());
 app.use(helmet());
 
-app.use("/posts", postRouter);
+app.use("/api/posts", postRouter);
+app.use("/api/replies", replyRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
