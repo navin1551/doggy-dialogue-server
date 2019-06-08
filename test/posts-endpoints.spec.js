@@ -33,16 +33,16 @@ describe("Post Endpoints", function() {
     });
 
     context("Given there are posts in the database", () => {
-      const testArticles = makePostsArray();
+      const testPosts = makePostsArray();
 
       beforeEach("insert posts", () => {
-        return db.into("posts").insert(testArticles);
+        return db.into("posts").insert(testPosts);
       });
 
       it("GET /posts responds with 200 and all of the posts", () => {
         return supertest(app)
           .get("/api/posts")
-          .expect(200, testArticles);
+          .expect(200, testPosts);
       });
     });
   });
@@ -156,12 +156,45 @@ describe("Post Endpoints", function() {
   });
 
   describe("PATCH /api/posts/:post_id", () => {
-    context("Given no articles", () => {
+    context("Given no posts", () => {
       it("responds with 404", () => {
         const postId = 123456;
         return supertest(app)
           .patch(`/api/posts/${postId}`)
           .expect(404, { error: { message: `Post doesn't exist` } });
+      });
+    });
+
+    context("Given there are posts in the database", () => {
+      const testPosts = makePostsArray();
+
+      beforeEach("insert posts", () => {
+        return db.into("posts").insert(testPosts);
+      });
+
+      it("responds with 204 and updates the post", () => {
+        const idToUpdate = 2;
+
+        const updatePost = {
+          title: "updated post title",
+          content: "updated post content",
+          forumid: 1
+        };
+
+        const expectedPost = {
+          ...testPosts[idToUpdate - 1],
+          ...updatePost
+        };
+
+        return supertest(app)
+          .patch(`/api/posts/${idToUpdate}`)
+          .send(updatePost)
+          .expect(204)
+          .then(res =>
+            supertest(app)
+              .get(`/api/posts/${idToUpdate}`)
+              .expect(expectedPost)
+          );
       });
     });
   });
