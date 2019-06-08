@@ -8,7 +8,7 @@ const serializedReplies = reply => ({
   id: reply.id,
   reply: reply.reply,
   date_commented: reply.date_commented,
-  post: reply.postid
+  postid: reply.postid
 });
 
 replyRouter
@@ -30,7 +30,7 @@ replyRouter
       .then(reply => {
         res
           .status(201)
-          .location(`/replies/${reply.id}`)
+          .location(`/api/replies/${reply.id}`)
           .json(reply);
       })
       .catch(next);
