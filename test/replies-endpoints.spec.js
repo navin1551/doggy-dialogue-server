@@ -2,7 +2,7 @@ const knex = require("knex");
 const app = require("../src/app");
 const { makeRepliesArray } = require("./replies.fixtures");
 
-describe.only("Reply Endpoints", function() {
+describe("Reply Endpoints", function() {
   let db;
 
   before("make knex instance", () => {
@@ -15,12 +15,61 @@ describe.only("Reply Endpoints", function() {
 
   after("disconnect from db", () => db.destroy());
 
+  beforeEach("insert posts", () => {
+    let testPosts = [
+      {
+        id: 1,
+        title: "title1",
+        content: "content1",
+        date_created: "2029-01-22T16:28:32.615Z",
+        forumid: 1
+      },
+      {
+        id: 2,
+        title: "title2",
+        content: "content2",
+        date_created: "2029-01-22T16:28:32.615Z",
+        forumid: 2
+      },
+      {
+        id: 3,
+        title: "title3",
+        content: "content3",
+        date_created: "2029-01-22T16:28:32.615Z",
+        forumid: 3
+      },
+      {
+        id: 4,
+        title: "title4",
+        content: "content4",
+        date_created: "2029-01-22T16:28:32.615Z",
+        forumid: 4
+      },
+      {
+        id: 5,
+        title: "title5",
+        content: "content5",
+        date_created: "2029-01-22T16:28:32.615Z",
+        forumid: 5
+      },
+      {
+        id: 6,
+        title: "title6",
+        content: "content6",
+        date_created: "2029-01-22T16:28:32.615Z",
+        forumid: 6
+      }
+    ];
+
+    return db.into("posts").insert(testPosts);
+  });
+
   before("clean the table", () =>
-    db.raw("TRUNCATE replies RESTART IDENTITY CASCADE")
+    db.raw("TRUNCATE posts, replies RESTART IDENTITY CASCADE")
   );
 
   afterEach("cleanup", () =>
-    db.raw("TRUNCATE replies RESTART IDENTITY CASCADE")
+    db.raw("TRUNCATE posts, replies RESTART IDENTITY CASCADE")
   );
 
   describe("GET /api/replies", () => {
@@ -52,7 +101,7 @@ describe.only("Reply Endpoints", function() {
       it("responds with 404", () => {
         const replyId = 123456;
         return supertest(app)
-          .get(`/api/reply/${replyId}`)
+          .get(`/api/replies/${replyId}`)
           .expect(404, { error: { message: `Reply doesn't exist` } });
       });
     });
