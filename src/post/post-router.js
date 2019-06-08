@@ -9,7 +9,7 @@ const serializedPosts = post => ({
   title: post.title,
   content: post.content,
   date_created: post.date_created,
-  forum: post.forumid
+  forumid: post.forumid
 });
 
 postRouter
@@ -31,7 +31,7 @@ postRouter
       .then(post => {
         res
           .status(201)
-          .location(`/posts/${post.id}`)
+          .location(`/api/posts/${post.id}`)
           .json(post);
       })
       .catch(next);
