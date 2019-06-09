@@ -1,11 +1,18 @@
 INSERT INTO forums (title)
   VALUES
-  ('One'),
-  ('Two'),
-  ('Three'),
-  ('Four'),
-  ('Five'),
-  ('Six');
+  ('Introductions'),
+  ('Dog Grooming'),
+  ('Dog Health'),
+  ('Dog Training and Behavior'),
+  ('Dog Food'),
+  ('General Dog Discussion'),
+  ('Dog Shows'),
+  ('Working Dogs'),
+  ('Dog Sports'),
+  ('Dog News'),
+  ('Dog Stories'),
+  ('Dog Memorials'),
+  ('Dog Breeds');
 
 
 
