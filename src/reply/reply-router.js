@@ -1,5 +1,6 @@
 const express = require("express");
 const ReplyService = require("./reply-service");
+const { requireAuth } = require("../middleware/basic-auth");
 
 const replyRouter = express.Router();
 const jsonParser = express.json();
@@ -8,7 +9,8 @@ const serializedReplies = reply => ({
   id: reply.id,
   reply: reply.reply,
   date_commented: reply.date_commented,
-  postid: reply.postid
+  postid: reply.postid,
+  userid: reply.userid
 });
 
 replyRouter
@@ -22,9 +24,9 @@ replyRouter
       .catch(next);
   })
 
-  .post(jsonParser, (req, res, next) => {
-    const { id, reply, date_commented, postid } = req.body;
-    const newReply = { id, reply, date_commented, postid };
+  .post(requireAuth, jsonParser, (req, res, next) => {
+    const { id, reply, date_commented, postid, userid } = req.body;
+    const newReply = { id, reply, date_commented, postid, userid };
     const knexInstance = req.app.get("db");
     ReplyService.insertReplies(knexInstance, newReply)
       .then(reply => {

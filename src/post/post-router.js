@@ -1,6 +1,7 @@
 const express = require("express");
 const xss = require("xss");
 const PostService = require("./post-service");
+const { requireAuth } = require("../middleware/basic-auth");
 
 const postRouter = express.Router();
 const jsonParser = express.json();
@@ -24,10 +25,11 @@ postRouter
       .catch(next);
   })
 
-  .post(jsonParser, (req, res, next) => {
+  .post(requireAuth, jsonParser, (req, res, next) => {
     const { id, title, content, date_created, forumid } = req.body;
     const newPost = { id, title, content, date_created, forumid };
     const knexInstance = req.app.get("db");
+    newPost.user_id = req.user.id;
     PostService.insertPosts(knexInstance, newPost)
       .then(post => {
         res

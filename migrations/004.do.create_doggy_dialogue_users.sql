@@ -3,3 +3,11 @@ CREATE TABLE users (
   full_name TEXT NOT NULL,
   password TEXT NOT NULL
 );
+
+ALTER TABLE posts
+  ADD COLUMN userid
+    INTEGER REFERENCES users(id);
+
+ALTER TABLE replies
+  ADD COLUMN userid
+    INTEGER REFERENCES users(id);
