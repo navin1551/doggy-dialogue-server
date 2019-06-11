@@ -24,10 +24,11 @@ replyRouter
       .catch(next);
   })
 
-  .post(jsonParser, (req, res, next) => {
-    const { id, reply, date_commented, postid, userid } = req.body;
-    const newReply = { id, reply, date_commented, postid, userid };
+  .post(requireAuth, jsonParser, (req, res, next) => {
+    const { id, reply, date_commented, postid } = req.body;
+    const newReply = { id, reply, date_commented, postid };
     const knexInstance = req.app.get("db");
+    newReply.userid = req.user.id;
     ReplyService.insertReplies(knexInstance, newReply)
       .then(reply => {
         res
