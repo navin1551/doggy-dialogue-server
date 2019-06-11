@@ -24,7 +24,7 @@ replyRouter
       .catch(next);
   })
 
-  .post(requireAuth, jsonParser, (req, res, next) => {
+  .post(jsonParser, (req, res, next) => {
     const { id, reply, date_commented, postid, userid } = req.body;
     const newReply = { id, reply, date_commented, postid, userid };
     const knexInstance = req.app.get("db");

@@ -29,7 +29,7 @@ postRouter
     const { id, title, content, date_created, forumid } = req.body;
     const newPost = { id, title, content, date_created, forumid };
     const knexInstance = req.app.get("db");
-    newPost.user_id = req.user.id;
+    newPost.userid = req.user.id;
     PostService.insertPosts(knexInstance, newPost)
       .then(post => {
         res
