@@ -1,7 +1,7 @@
 const express = require("express");
 const xss = require("xss");
 const PostService = require("./post-service");
-const { requireAuth } = require("../middleware/basic-auth");
+const { requireAuth } = require("../middleware/jwt-auth");
 
 const postRouter = express.Router();
 const jsonParser = express.json();

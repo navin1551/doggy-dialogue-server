@@ -1,6 +1,6 @@
 const express = require("express");
 const ReplyService = require("./reply-service");
-const { requireAuth } = require("../middleware/basic-auth");
+const { requireAuth } = require("../middleware/jwt-auth");
 
 const replyRouter = express.Router();
 const jsonParser = express.json();
