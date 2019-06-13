@@ -130,7 +130,7 @@ describe("Reply Endpoints", function() {
     });
   });
 
-  describe("POST /api/replies", () => {
+  /*describe("POST /api/replies", () => {
     it("creates a reply, responding with 201 and the new reply", () => {
       const newReply = {
         reply: "new test reply",
@@ -152,7 +152,7 @@ describe("Reply Endpoints", function() {
             .expect(res.body)
         );
     });
-  });
+  });*/
 
   describe("DELETE /api/replies/:reply_id", () => {
     context("Given no replies", () => {
