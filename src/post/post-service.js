@@ -1,6 +1,10 @@
 const PostService = {
   getAllPosts(knex) {
-    return knex.select("*").from("posts");
+    //return knex.select("*").from("posts");
+    return knex
+      .select("*")
+      .from("posts")
+      .join("users", { "users.id": "posts.userid" });
   },
 
   getById(knex, id) {

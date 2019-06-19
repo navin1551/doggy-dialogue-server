@@ -19,7 +19,8 @@ replyRouter
     const knexInstance = req.app.get("db");
     ReplyService.getAllReplies(knexInstance)
       .then(replies => {
-        res.json(replies.map(serializedReplies));
+        //res.json(replies.map(serializedReplies));
+        res.json(replies);
       })
       .catch(next);
   })

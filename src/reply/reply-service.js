@@ -1,6 +1,10 @@
 const ReplyService = {
   getAllReplies(knex) {
-    return knex.select("*").from("replies");
+    //return knex.select("*").from("replies");
+    return knex
+      .select("*")
+      .from("replies")
+      .join("users", { "users.id": "replies.userid" });
   },
 
   insertReplies(knex, newReplies) {
