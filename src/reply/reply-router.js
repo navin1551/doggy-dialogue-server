@@ -9,8 +9,7 @@ const serializedReplies = reply => ({
   id: reply.id,
   reply: reply.reply,
   date_commented: reply.date_commented,
-  postid: reply.postid,
-  userid: reply.userid
+  postid: reply.postid
 });
 
 replyRouter

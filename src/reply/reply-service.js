@@ -2,7 +2,13 @@ const ReplyService = {
   getAllReplies(knex) {
     //return knex.select("*").from("replies");
     return knex
-      .select("*")
+      .select(
+        "replies.id",
+        "replies.reply",
+        "replies.date_commented",
+        "users.user_name",
+        "replies.postid"
+      )
       .from("replies")
       .join("users", { "users.id": "replies.userid" });
   },

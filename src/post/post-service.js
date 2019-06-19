@@ -2,7 +2,14 @@ const PostService = {
   getAllPosts(knex) {
     //return knex.select("*").from("posts");
     return knex
-      .select("*")
+      .select(
+        "posts.id",
+        "posts.title",
+        "posts.content",
+        "posts.date_created",
+        "users.user_name",
+        "posts.forumid"
+      )
       .from("posts")
       .join("users", { "users.id": "posts.userid" });
   },
