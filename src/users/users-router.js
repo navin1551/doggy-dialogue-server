@@ -11,7 +11,7 @@ usersRouter.post("/", jsonParser, (req, res, next) => {
   for (const field of ["user_name", "password"])
     if (!req.body[field])
       return res.status(400).json({
-        error: `Missing '${field}' in request body`
+        error: `Missing '${field}' in required field`
       });
 
   const passwordError = UsersService.validatePassword(password);
