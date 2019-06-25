@@ -20,6 +20,16 @@ const ReplyService = {
       .returning("*")
       .then(rows => {
         return rows[0];
+      })
+      .then(reply => {
+        return knex
+          .select("user_name")
+          .from("users")
+          .where("id", reply.userid)
+          .then(username => {
+            reply.username = username;
+            return reply;
+          });
       });
   },
 

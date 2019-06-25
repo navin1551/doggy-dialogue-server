@@ -1,5 +1,4 @@
 const express = require("express");
-const xss = require("xss");
 const PostService = require("./post-service");
 const { requireAuth } = require("../middleware/jwt-auth");
 
