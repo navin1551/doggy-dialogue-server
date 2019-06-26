@@ -10,7 +10,8 @@ const ReplyService = {
         "replies.postid"
       )
       .from("replies")
-      .join("users", { "users.id": "replies.userid" });
+      .join("users", { "users.id": "replies.userid" })
+      .orderBy("replies.id");
   },
 
   insertReplies(knex, newReplies) {
