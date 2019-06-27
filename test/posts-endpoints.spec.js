@@ -3,8 +3,25 @@ const app = require("../src/app");
 const { makePostsArray } = require("./posts.fixtures");
 const jwt = require("jsonwebtoken");
 
-describe("Post Endpoints", function() {
+describe.only("Post Endpoints", function() {
   let db;
+
+  /*function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
+    const token = jwt.sign({ user_id: user.id }, secret, {
+      subject: user.email,
+      algorithm: "HS256"
+    });
+    return `bearer ${token}`;
+  }
+
+  let testUsers = {
+    id: 1,
+    first_name: "Test",
+    last_name: "User",
+    email: "testemail1@email.com",
+    password: "password1",
+    date_created: "2029-01-22T16:28:32.615Z"
+  };*/
 
   before("make knex instance", () => {
     db = knex({
@@ -94,6 +111,7 @@ describe("Post Endpoints", function() {
       return supertest(app)
         .post("/api/posts")
         .send(newPost)
+        .set("Authorization", makeAuthHeader(testUsers))
         .expect(201)
         .expect(res => {
           expect(res.body.title).to.eql(newPost.title);
