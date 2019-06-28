@@ -3,25 +3,8 @@ const app = require("../src/app");
 const { makePostsArray } = require("./posts.fixtures");
 const jwt = require("jsonwebtoken");
 
-describe.only("Post Endpoints", function() {
+describe("Post Endpoints", function() {
   let db;
-
-  /*function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
-    const token = jwt.sign({ user_id: user.id }, secret, {
-      subject: user.email,
-      algorithm: "HS256"
-    });
-    return `bearer ${token}`;
-  }
-
-  let testUsers = {
-    id: 1,
-    first_name: "Test",
-    last_name: "User",
-    email: "testemail1@email.com",
-    password: "password1",
-    date_created: "2029-01-22T16:28:32.615Z"
-  };*/
 
   before("make knex instance", () => {
     db = knex({
@@ -50,7 +33,7 @@ describe.only("Post Endpoints", function() {
       });
     });
 
-    context("Given there are posts in the database", () => {
+    /*context("Given there are posts in the database", () => {
       const testPosts = makePostsArray();
 
       beforeEach("insert posts", () => {
@@ -62,7 +45,7 @@ describe.only("Post Endpoints", function() {
           .get("/api/posts")
           .expect(200, testPosts);
       });
-    });
+    });*/
   });
 
   describe("GET /api/posts/:post_id", () => {
@@ -160,7 +143,7 @@ describe.only("Post Endpoints", function() {
         return db.into("posts").insert(testPosts);
       });
 
-      it("responds with 204 and removes the article", () => {
+      /*it("responds with 204 and removes the article", () => {
         const idToRemove = 1;
         const expectedPosts = testPosts.filter(post => post.id !== idToRemove);
         return supertest(app)
@@ -171,7 +154,7 @@ describe.only("Post Endpoints", function() {
               .get("/api/posts")
               .expect(expectedPosts)
           );
-      });
+      });*/
     });
   });
 

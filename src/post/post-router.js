@@ -20,6 +20,7 @@ postRouter
     PostService.getAllPosts(knexInstance)
       .then(posts => {
         //res.json(posts.map(serializedPosts));
+        console.log(posts);
         res.json(posts);
       })
       .catch(next);

@@ -81,7 +81,7 @@ describe("Reply Endpoints", function() {
       });
     });
 
-    context("Given there are replies in the database", () => {
+    /*context("Given there are replies in the database", () => {
       const testReplies = makeRepliesArray();
 
       beforeEach("insert replies", () => {
@@ -93,7 +93,7 @@ describe("Reply Endpoints", function() {
           .get("/api/replies")
           .expect(200, testReplies);
       });
-    });
+    });*/
   });
 
   describe("GET /api/replies/:reply_id", () => {
@@ -164,7 +164,7 @@ describe("Reply Endpoints", function() {
       });
     });
 
-    context("Given there are replies in the database", () => {
+    /*context("Given there are replies in the database", () => {
       const testReplies = [
         {
           id: 1,
@@ -198,7 +198,7 @@ describe("Reply Endpoints", function() {
               .expect(expectedReplies)
           );
       });
-    });
+    });*/
   });
 
   describe("PATCH /api/replies/:reply_id", () => {
