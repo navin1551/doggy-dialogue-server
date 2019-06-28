@@ -4,7 +4,7 @@ Link to live app: https://doggy-dialogue-app.now.sh/
 
 Summary: Doggy Dialogue is a forum for dog lovers to post questions and reply to all matters regarding dogs. Users can sign up for a user name and password and once logged in, can make posts in various forums as well as reply to other users posts.
 
-Technologies implemented: HTML, CSS, JavaScript, React.js, Node.js, Express.js, PostgreSQL, JWT auth flows, Mocha/Chai testing, Git, GitHub
+Technologies implemented: HTML, CSS, JavaScript, React.js, Node.js, Express.js, PostgreSQL, JWT auth flows, Mocha/Chai testing, API, Git, GitHub
 
 
 # Express Boilerplate!
