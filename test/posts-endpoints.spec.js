@@ -3,8 +3,15 @@ const app = require("../src/app");
 const { makePostsArray } = require("./posts.fixtures");
 const jwt = require("jsonwebtoken");
 
-describe("Post Endpoints", function() {
+describe.only("Post Endpoints", function() {
   let db;
+
+  function makeAuthHeader(user) {
+    const token = Buffer.from(`${user.user_name}:${user.password}`).toString(
+      "base64"
+    );
+    return `Basic ${token}`;
+  }
 
   before("make knex instance", () => {
     db = knex({
@@ -83,12 +90,17 @@ describe("Post Endpoints", function() {
     });
   });
 
-  /*describe("POST /api/posts", () => {
+  describe("POST /api/posts", () => {
     it("creates a post, responding with 201 and the new post", () => {
       const newPost = {
         title: "Test new post",
         content: "Test new content",
         forumid: 1
+      };
+
+      const testUsers = {
+        user_name: "User2",
+        password: "password2"
       };
 
       return supertest(app)
@@ -109,7 +121,7 @@ describe("Post Endpoints", function() {
             .expect(res.body)
         );
     });
-  });*/
+  });
 
   describe("DELETE /api/posts/:posts_id", () => {
     context("Given no posts", () => {
@@ -143,7 +155,7 @@ describe("Post Endpoints", function() {
         return db.into("posts").insert(testPosts);
       });
 
-      /*it("responds with 204 and removes the article", () => {
+      it("responds with 204 and removes the article", () => {
         const idToRemove = 1;
         const expectedPosts = testPosts.filter(post => post.id !== idToRemove);
         return supertest(app)
@@ -154,7 +166,7 @@ describe("Post Endpoints", function() {
               .get("/api/posts")
               .expect(expectedPosts)
           );
-      });*/
+      });
     });
   });
 
